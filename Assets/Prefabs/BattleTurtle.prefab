@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4616690703975400152}
   - component: {fileID: -6819781281287506155}
   - component: {fileID: 5311691430542680152}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BattleTurtle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

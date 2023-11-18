@@ -7,6 +7,7 @@ public class Centipede : Pet, IDamagable {
     [SerializeField] private Slider _happinessSlider;
     [SerializeField] private GameObject _uiIcon;
     [SerializeField] private Animator animator;
+    private int _hitDetection = 9;
     private bool _attacking = false;
     private bool changeDirection = false;
     private float _direction = 1f;
@@ -87,18 +88,21 @@ public class Centipede : Pet, IDamagable {
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
-       
-        if (collision.transform.TryGetComponent<IDamagable>(out IDamagable damage)) {
-            Debug.Log("HELLO");
-            _attacking = true;
-            animator.SetBool("Attack", _attacking);
+        if (collision.transform.TryGetComponent<IDamagable>(out IDamagable damage) && _hitDetection == LayerMask.GetMask("Villian")) {
+            Debug.Log(collision.gameObject.layer);
+            if(collision.gameObject.layer == 9) {
+                _attacking = true;
+                animator.SetBool("Attack", _attacking);
+            }
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
-        if(collision.transform.TryGetComponent<IDamagable>(out IDamagable damage)) {
-            _attacking = false;
-            animator.SetBool("Attack", _attacking);
+        if(collision.transform.TryGetComponent<IDamagable>(out IDamagable damage) && _hitDetection == LayerMask.GetMask("Villian")) {
+            if (collision.gameObject.layer == 9) {
+                _attacking = false;
+                animator.SetBool("Attack", _attacking);
+            }
         }
     }
 }

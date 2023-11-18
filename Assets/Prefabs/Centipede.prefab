@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9131052601851770077}
   - component: {fileID: 9131052601851770078}
   - component: {fileID: 636409031}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Centipede
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,10 @@ MonoBehaviour:
   _hungerSlider: {fileID: 8560617156109707917}
   _happinessSlider: {fileID: 8560617156579362547}
   _uiIcon: {fileID: 8560617157423695791}
-  animator: {fileID: 0}
+  animator: {fileID: 9131052602240526518}
+  _hitDetection:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!50 &636409031
 Rigidbody2D:
   serializedVersion: 4
@@ -126,7 +129,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
