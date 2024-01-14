@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,39 +10,29 @@ public class ViewWindow : MonoBehaviour
     [SerializeField] private TMP_Text _agility;
     [SerializeField] private TMP_Text _intelligence;
     [SerializeField] private TMP_Text _health;
-    private Pet _showPet;
+    private Monster _monsterStoreView;
     private void OnEnable() {
         _petStore.OnMenuSelect += _petStore_OnMenuSelect;
     }
 
-    private void _petStore_OnMenuSelect(object sender, PetStore.PetChosenEventArgs sentOverPet) { 
-        if(_showPet != null) {
-                Destroy(_showPet.gameObject);
-                _showPet = null;
+    private void _petStore_OnMenuSelect(object sender, PetStore.MonsterChosenEventArgs sentOverPet) { 
+        if(_monsterStoreView != null) {
+                Destroy(_monsterStoreView.gameObject);
+                _monsterStoreView = null;
             }
 
-            _showPet = Instantiate(sentOverPet.chosenPet, _spawnLocation.transform.position,Quaternion.identity);
+            _monsterStoreView = Instantiate(sentOverPet.chosenPet, _spawnLocation.transform.position,Quaternion.identity);
         
-        if(_showPet != null) {
-            _stamina.text = "STAM: " + _showPet.Stamina.ToString();
-            _power.text = "POW: " + _showPet.Power.ToString();
-            _agility.text = "SPD: " +  _showPet.Agility.ToString();
-            _intelligence.text = "INT: " + _showPet.Intelligence.ToString();
-            _health.text = "HP: " + _showPet.Health.ToString();
-            _showPet.GetComponent<Pet>().enabled = false;
-            _showPet.GetComponent<Rigidbody2D>().gravityScale = 0;
-            _showPet.GetComponent<Transform>().localScale = new Vector3(3,3,3);
+        if(_monsterStoreView != null) {
+            _stamina.text = "STAM: " + _monsterStoreView.GetStam().ToString();
+            _power.text = "POW: " + _monsterStoreView.GetPower().ToString();
+            _agility.text = "SPD: " +  _monsterStoreView.GetAgility().ToString();
+            _intelligence.text = "INT: " + _monsterStoreView.GetIntelligence().ToString();
+            _health.text = "HP: " + _monsterStoreView.MaxHp.ToString();
+            _monsterStoreView.GetComponent<Monster>().enabled = false;
+            _monsterStoreView.GetComponent<Monster>().GetComponentInChildren<MonsterUI>().enabled = false;
+            _monsterStoreView.GetComponent<Rigidbody2D>().gravityScale = 0;
+            _monsterStoreView.GetComponent<Transform>().localScale = new Vector3(3,3,3);
         }
-    }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

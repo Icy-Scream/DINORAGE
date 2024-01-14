@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,6 +19,8 @@ public abstract class Pet : MonoBehaviour
   [SerializeField] protected float _weight;
   [SerializeField] protected Sprite _icon;
   [SerializeField] private SpriteRenderer _sprite;
+    public bool IsDead { get; set; } 
+    public Vector3 AttackTarget;
     public int Stamina { get => _stamina; set => _stamina = value;}
     public int Power { get => _power; set => _power = value;}
     public int Agility { get => _agility; set => _agility = value;}
@@ -47,6 +50,11 @@ public abstract class Pet : MonoBehaviour
         Weight = weight;
     }
 
+    public void GetAttackVector(Vector3 attackVector) {
+        Debug.Log(attackVector);
+        AttackTarget = attackVector;
+    }
+    
     public virtual void Update() {}
     public enum AIStates {Idle}
 

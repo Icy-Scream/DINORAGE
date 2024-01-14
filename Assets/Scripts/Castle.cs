@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Castle : MonoBehaviour,IDamagable
@@ -22,5 +21,9 @@ public class Castle : MonoBehaviour,IDamagable
         if(_health <= 0) { 
             Destroy(gameObject);
         }
-    }  
+    }
+
+    public void LoadCastleScene() {
+        SceneManager.LoadScene(1);
+    }
 }

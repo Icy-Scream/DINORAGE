@@ -1,19 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Stab : MonoBehaviour
 {
     [SerializeField] private int _damage = 4;
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.TryGetComponent<IDamagable>(out IDamagable damage)) {
-            damage.Damage(_damage);
+    [SerializeField] private GameObject _monster;
+    [SerializeField] public float _timer;
+    [SerializeField] private float DPS;
+    [SerializeField] private LayerMask _target;
+    [SerializeField] public bool _isAttacking = false;
+    Monster monsterObject;
+
+    private void Start() {
+        monsterObject = _monster.GetComponent<Monster>();
+    }
+
+    public void RayAttack() {
+        Vector3 direction = (monsterObject.AttackTarget.transform.position - transform.position).normalized;
+        var hitRay = Physics2D.Raycast(transform.position, direction, 0.8f,_target);
+
+        if (hitRay.collider != null) {
+            if (hitRay.transform.TryGetComponent<IDamagable>(out var enemy)) {
+                Attack(enemy);
+            }
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.transform.TryGetComponent<IDamagable>(out IDamagable damage)) {
-            damage.Damage(_damage);
+    private void Attack(IDamagable enemy) {
+        bool attackTimer = Time.time > (_timer + DPS);
+        if (attackTimer) {
+            _isAttacking = true;
+            enemy.Damage(1);
+            _timer = Time.time; 
         }
+        else
+            _isAttacking = false;
     }
 }
